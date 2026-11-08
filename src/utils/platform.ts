@@ -6,6 +6,7 @@
  *  - Native Android APK         -> Capacitor WebView, open the finance app directly
  *  - Installed PWA (standalone) -> home-screen app, open the finance app directly
  */
+import { Capacitor } from '@capacitor/core';
 
 interface CapacitorGlobal {
   isNativePlatform?: () => boolean;
@@ -15,6 +16,23 @@ interface CapacitorGlobal {
 /** True when running inside the native Android/iOS app (Capacitor). */
 export const isNativeApp = (): boolean => {
   if (typeof window === 'undefined') return false;
+  // 1. Injected Android build marker
+  if ((window as any).__MONEVIA_APP_MODE__ === true) return true;
+  // 2. Capacitor native check
+  try {
+    if (Capacitor.isNativePlatform()) return true;
+  } catch (e) {
+    // ignore
+  }
+  // 3. Native webview protocols / origins
+  if (
+    window.location.protocol === 'capacitor:' ||
+    window.location.protocol === 'ionic:' ||
+    (window.location.hostname === 'localhost' && !window.location.port)
+  ) {
+    return true;
+  }
+  // 4. Fallback window.Capacitor
   const cap = (window as unknown as { Capacitor?: CapacitorGlobal }).Capacitor;
   return Boolean(cap?.isNativePlatform?.());
 };

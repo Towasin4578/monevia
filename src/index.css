@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+  html, body, #root {
+    @apply w-full max-w-full overflow-x-hidden;
+  }
   body {
     @apply bg-brand-bg text-slate-800 dark:bg-brand-bg-dark dark:text-slate-100 antialiased;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-tap-highlight-color: transparent;
   }
 }
 

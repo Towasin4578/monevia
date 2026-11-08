@@ -72,8 +72,8 @@ export const App: React.FC = () => {
     );
   }
 
-  // 1. Show Landing Page first
-  if (viewMode === 'landing') {
+  // 1. Show Landing Page ONLY in regular web browser (NEVER inside installed app / APK)
+  if (!installedApp && viewMode === 'landing') {
     return <LandingPage onEnterApp={() => setViewMode('app')} />;
   }
 
@@ -132,7 +132,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-brand-bg dark:bg-brand-bg-dark text-slate-800 dark:text-slate-100">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden flex bg-brand-bg dark:bg-brand-bg-dark text-slate-800 dark:text-slate-100">
       {/* Desktop Navy Sidebar */}
       <Sidebar
         currentTab={currentTab}
@@ -141,7 +141,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Workspace Area */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen w-full max-w-full overflow-x-hidden">
         {/* Top Navbar */}
         <Navbar
           currentTab={currentTab}
@@ -151,7 +151,7 @@ export const App: React.FC = () => {
         />
 
         {/* Dynamic Page Router */}
-        <main className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">
+        <main className="flex-1 p-3 sm:p-4 md:p-8 max-w-7xl mx-auto w-full pb-24 lg:pb-8 overflow-x-hidden">
           {currentTab === 'dashboard' && (
             <DashboardPage
               onOpenAddTransaction={handleOpenAddTx}
