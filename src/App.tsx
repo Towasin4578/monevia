@@ -4,6 +4,7 @@ import { Sidebar } from './components/layout/Sidebar';
 import { Navbar } from './components/layout/Navbar';
 import { BottomNav } from './components/layout/BottomNav';
 import { Logo } from './branding/Logo';
+import { isInstalledApp } from './utils/platform';
 
 // Pages
 import { LandingPage } from './pages/LandingPage';
@@ -31,8 +32,13 @@ import { Transaction, Budget, SavingsGoal, Account, TransactionType } from './ty
 export const App: React.FC = () => {
   const { isLoaded, preferences } = useFinance();
 
+  // Installed app (Android APK / home-screen PWA) opens the finance app directly —
+  // the marketing website & download center are only shown in a normal browser.
+  const installedApp = isInstalledApp();
+
   // View Mode: 'landing' (Marketing + Download Showcase) or 'app' (Financial Platform)
-  const [viewMode, setViewMode] = useState<'landing' | 'app'>('landing');
+  const [viewMode, setViewMode] = useState<'landing' | 'app'>(installedApp ? 'app' : 'landing');
+  const goToLanding = installedApp ? undefined : () => setViewMode('landing');
 
   // Active navigation tab
   const [currentTab, setCurrentTab] = useState<string>('dashboard');
@@ -73,7 +79,7 @@ export const App: React.FC = () => {
 
   // 2. If entered App and Onboarding is not completed yet, show Onboarding
   if (!preferences.onboardingCompleted) {
-    return <OnboardingFlow onBackToLanding={() => setViewMode('landing')} />;
+    return <OnboardingFlow onBackToLanding={goToLanding} />;
   }
 
   // Handlers for Opening Modals
@@ -141,7 +147,7 @@ export const App: React.FC = () => {
           currentTab={currentTab}
           onOpenQuickAdd={() => handleOpenAddTx('expense')}
           onNavigateToSettings={() => setCurrentTab('settings')}
-          onBackToLanding={() => setViewMode('landing')}
+          onBackToLanding={goToLanding}
         />
 
         {/* Dynamic Page Router */}
