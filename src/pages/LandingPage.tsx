@@ -31,6 +31,7 @@ interface LandingPageProps {
 export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
   const [lang, setLang] = useState<'bn' | 'en'>('bn');
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallTip, setShowInstallTip] = useState(false);
 
   useEffect(() => {
     const handler = (e: any) => {
@@ -55,13 +56,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
       await deferredPrompt.userChoice;
       setDeferredPrompt(null);
     } else {
-      // Fallback: direct download standalone package
-      const link = document.createElement('a');
-      link.href = '/downloads/Monevia-Desktop-Windows.zip';
-      link.download = 'Monevia-Desktop-Windows.zip';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      setShowInstallTip(true);
     }
   };
 
@@ -310,22 +305,29 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                 </h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   {lang === 'bn'
-                    ? 'Android ফোনে সরাসরি আসল অ্যাপ আকারে ইনস্টল করুন। হোমস্ক্রিনে অ্যাপ আইকন চলে আসবে।'
-                    : 'Install directly as a native mobile app on any Android smartphone or tablet.'}
+                    ? 'Android ফোনের জন্য সরাসরি অফিসিয়াল Monevia.apk ডাউনলোড করুন অথবা ১-ক্লিকে ইনস্টল করুন।'
+                    : 'Download the official Monevia.apk for Android or install in 1-click.'}
                 </p>
               </div>
 
               <div className="space-y-2 pt-2">
-                <button
-                  type="button"
-                  onClick={handleInstallPWA}
+                <a
+                  href="https://github.com/Towasin4578/monevia/releases/download/v1.0.0-apk/Monevia.apk"
+                  download="Monevia.apk"
                   className="w-full py-3 px-4 rounded-xl bg-brand-emerald hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-transform active:scale-95"
                 >
                   <Download className="w-4 h-4" />
-                  <span>{lang === 'bn' ? 'Android-এ ইনস্টল করুন' : 'Install on Android'}</span>
+                  <span>{lang === 'bn' ? 'Monevia.apk ডাউনলোড' : 'Download Monevia.apk'}</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={handleInstallPWA}
+                  className="w-full py-2 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 font-semibold text-[11px] flex items-center justify-center gap-1.5 transition-colors"
+                >
+                  <span>{lang === 'bn' ? 'বা সরাসরি ব্রাউজারে ইনস্টল' : 'Or 1-Click Install'}</span>
                 </button>
                 <span className="block text-[10px] text-slate-400 text-center font-mono">
-                  Progressive Native WebAPK
+                  v1.0.0 • Monevia.apk • Android 7.0+
                 </span>
               </div>
             </div>
@@ -508,6 +510,41 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           </p>
         </div>
       </footer>
+
+      {/* Mobile Install Helper Modal */}
+      {showInstallTip && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-brand-navy-dark rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-elevated border border-slate-200 dark:border-brand-border-dark text-slate-800 dark:text-white animate-fade-in">
+            <div className="flex items-center justify-between">
+              <div className="w-12 h-12 rounded-2xl bg-brand-emerald/20 text-brand-emerald flex items-center justify-center">
+                <Smartphone className="w-6 h-6" />
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowInstallTip(false)}
+                className="text-slate-400 hover:text-slate-600 dark:hover:text-white text-lg font-bold"
+              >
+                ✕
+              </button>
+            </div>
+            <h4 className="font-black text-lg">
+              {lang === 'bn' ? 'মোবাইলে ইনস্টল করার নিয়ম' : 'How to Install on Mobile'}
+            </h4>
+            <ol className="text-xs text-slate-600 dark:text-slate-300 space-y-2 list-decimal list-inside leading-relaxed">
+              <li>{lang === 'bn' ? 'ব্রাউজারের উপরের বা নিচের ৩-ডট (মেনু) বাটনে চাপুন।' : 'Tap the 3-dots (menu) in your browser.'}</li>
+              <li>{lang === 'bn' ? '"Install app" অথবা "Add to Home screen"-এ ট্যাপ করুন।' : 'Tap "Install app" or "Add to Home screen".'}</li>
+              <li>{lang === 'bn' ? 'সাথে সাথে আপনার মোবাইলে আসল Monevia অ্যাপ ইনস্টল হয়ে যাবে!' : 'Monevia will install directly onto your phone!'}</li>
+            </ol>
+            <button
+              type="button"
+              onClick={() => setShowInstallTip(false)}
+              className="w-full py-3 rounded-xl bg-brand-emerald hover:bg-emerald-600 text-white font-bold text-xs shadow-md transition-colors"
+            >
+              {lang === 'bn' ? 'বুঝেছি / ঠিক আছে' : 'Got it'}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

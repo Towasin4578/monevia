@@ -4,6 +4,18 @@
   "description": "Your Money. Your Control. International multi-currency personal finance and expense management platform.",
   "icons": [
     {
+      "src": "/brand/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/brand/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/brand/favicon.svg",
       "type": "image/svg+xml",
       "sizes": "64x64"
