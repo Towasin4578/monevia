@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useFinance } from '../../context/FinanceContext';
 import { Logo } from '../../branding/Logo';
-import { Moon, Sun, Globe, Plus, Download } from 'lucide-react';
+import { Moon, Sun, Globe, Plus, Download, Home } from 'lucide-react';
 
 interface NavbarProps {
   currentTab: string;
   onOpenQuickAdd: () => void;
   onNavigateToSettings: () => void;
+  onBackToLanding?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   currentTab,
   onOpenQuickAdd,
   onNavigateToSettings,
+  onBackToLanding,
 }) => {
   const { preferences, profile, updatePreferences, t } = useFinance();
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -89,6 +91,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right: Actions */}
         <div className="flex items-center gap-2 md:gap-3">
+          {onBackToLanding && (
+            <button
+              type="button"
+              onClick={onBackToLanding}
+              title="Return to Website Showcase"
+              className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-1.5 transition-colors"
+            >
+              <Home className="w-3.5 h-3.5 text-brand-blue" />
+              <span className="hidden sm:inline">{preferences.language === 'bn' ? 'হোমপেজ' : 'Website'}</span>
+            </button>
+          )}
+
           {/* Install / Download App Button */}
           {!isInstalled && (
             <button

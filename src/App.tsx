@@ -6,6 +6,7 @@ import { BottomNav } from './components/layout/BottomNav';
 import { Logo } from './branding/Logo';
 
 // Pages
+import { LandingPage } from './pages/LandingPage';
 import { OnboardingFlow } from './pages/onboarding/OnboardingFlow';
 import { DashboardPage } from './pages/DashboardPage';
 import { IncomePage } from './pages/IncomePage';
@@ -29,6 +30,9 @@ import { Transaction, Budget, SavingsGoal, Account, TransactionType } from './ty
 
 export const App: React.FC = () => {
   const { isLoaded, preferences } = useFinance();
+
+  // View Mode: 'landing' (Marketing + Download Showcase) or 'app' (Financial Platform)
+  const [viewMode, setViewMode] = useState<'landing' | 'app'>('landing');
 
   // Active navigation tab
   const [currentTab, setCurrentTab] = useState<string>('dashboard');
@@ -62,9 +66,14 @@ export const App: React.FC = () => {
     );
   }
 
-  // First-Time Onboarding
+  // 1. Show Landing Page first
+  if (viewMode === 'landing') {
+    return <LandingPage onEnterApp={() => setViewMode('app')} />;
+  }
+
+  // 2. If entered App and Onboarding is not completed yet, show Onboarding
   if (!preferences.onboardingCompleted) {
-    return <OnboardingFlow />;
+    return <OnboardingFlow onBackToLanding={() => setViewMode('landing')} />;
   }
 
   // Handlers for Opening Modals
@@ -132,6 +141,7 @@ export const App: React.FC = () => {
           currentTab={currentTab}
           onOpenQuickAdd={() => handleOpenAddTx('expense')}
           onNavigateToSettings={() => setCurrentTab('settings')}
+          onBackToLanding={() => setViewMode('landing')}
         />
 
         {/* Dynamic Page Router */}

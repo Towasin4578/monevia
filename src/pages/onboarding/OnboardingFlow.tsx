@@ -31,7 +31,13 @@ const AVATAR_OPTIONS = [
   { id: 'avatar-6', label: 'Professional', emoji: '👔', bg: 'bg-indigo-100 text-indigo-700' },
 ];
 
-export const OnboardingFlow: React.FC = () => {
+export interface OnboardingFlowProps {
+  onBackToLanding?: () => void;
+}
+
+export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
+  onBackToLanding,
+}) => {
   const { t, preferences, completeOnboarding, updatePreferences } = useFinance();
 
   // Current Step: 1 to 6
@@ -160,7 +166,18 @@ export const OnboardingFlow: React.FC = () => {
     <div className="min-h-screen bg-brand-bg dark:bg-brand-bg-dark flex flex-col justify-between p-4 md:p-8 selection:bg-brand-blue selection:text-white">
       {/* Top Header */}
       <div className="max-w-4xl mx-auto w-full flex items-center justify-between pb-6 border-b border-slate-200 dark:border-brand-border-dark gap-2">
-        <Logo variant="horizontal" size="md" showTagline={true} />
+        <div className="flex items-center gap-3">
+          <Logo variant="horizontal" size="md" showTagline={true} />
+          {onBackToLanding && (
+            <button
+              type="button"
+              onClick={onBackToLanding}
+              className="hidden sm:inline-block text-xs font-bold text-slate-500 hover:text-brand-blue pl-2 border-l border-slate-300 dark:border-slate-700"
+            >
+              ← {selectedLang === 'bn' ? 'হোমপেজ' : 'Website'}
+            </button>
+          )}
+        </div>
         
         <div className="flex items-center gap-2">
           {/* Prominent App Download Button at the Very Beginning */}
