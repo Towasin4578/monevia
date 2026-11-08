@@ -19,6 +19,7 @@ import {
   Sparkles,
   ShieldCheck,
   Check,
+  Download,
 } from 'lucide-react';
 
 const AVATAR_OPTIONS = [
@@ -72,6 +73,32 @@ export const OnboardingFlow: React.FC = () => {
   const [userName, setUserName] = useState<string>('Tahmid Hasan');
   const [userEmail, setUserEmail] = useState<string>('');
   const [selectedAvatar, setSelectedAvatar] = useState<string>('avatar-1');
+
+  // PWA Install Prompt State
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+  React.useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstallApp = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      setDeferredPrompt(null);
+    } else {
+      alert(
+        selectedLang === 'bn'
+          ? '📱 অ্যাপটি আপনার ডিভাইস বা কম্পিউটারে সরাসরি ইনস্টল করতে ব্রাউজারের অ্যাড্রেস বারের ডানপাশে থাকা "Install App" বাটন চাপুন (বা মোবাইলে মেনু থেকে "Add to Home Screen")।'
+          : '📱 To install Monevia on your desktop or mobile, click the "Install App" icon in your browser address bar (or "Add to Home Screen" on mobile).'
+      );
+    }
+  };
 
   // Instant language change on Step 1
   const handleSelectLanguage = (lang: SupportedLanguage) => {
@@ -132,10 +159,24 @@ export const OnboardingFlow: React.FC = () => {
   return (
     <div className="min-h-screen bg-brand-bg dark:bg-brand-bg-dark flex flex-col justify-between p-4 md:p-8 selection:bg-brand-blue selection:text-white">
       {/* Top Header */}
-      <div className="max-w-4xl mx-auto w-full flex items-center justify-between pb-6 border-b border-slate-200 dark:border-brand-border-dark">
+      <div className="max-w-4xl mx-auto w-full flex items-center justify-between pb-6 border-b border-slate-200 dark:border-brand-border-dark gap-2">
         <Logo variant="horizontal" size="md" showTagline={true} />
-        <div className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue dark:bg-brand-blue/20 dark:text-blue-400">
-          <span>{t('common.status')}: Step {step} of 6</span>
+        
+        <div className="flex items-center gap-2">
+          {/* Prominent App Download Button at the Very Beginning */}
+          <button
+            type="button"
+            onClick={handleInstallApp}
+            title="Download / Install Monevia App on your Device"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-brand-emerald to-teal-600 hover:from-teal-600 hover:to-brand-emerald text-white text-xs font-bold shadow-sm transition-transform active:scale-95"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>{selectedLang === 'bn' ? 'অ্যাপ ডাউনলোড' : 'Download App'}</span>
+          </button>
+
+          <div className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue dark:bg-brand-blue/20 dark:text-blue-400">
+            <span>Step {step} of 6</span>
+          </div>
         </div>
       </div>
 
@@ -215,6 +256,32 @@ export const OnboardingFlow: React.FC = () => {
                     <Check className="w-4 h-4 stroke-[3]" />
                   </div>
                 )}
+              </button>
+            </div>
+
+            {/* Quick App Download Card on Step 1 */}
+            <div className="max-w-xl mx-auto p-4 rounded-2xl bg-gradient-to-r from-brand-navy via-brand-navy-light to-brand-blue text-white shadow-card flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-white/10 text-brand-emerald">
+                  <Download className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs sm:text-sm text-white">
+                    {selectedLang === 'bn' ? 'সরাসরি অ্যাপ ডাউনলোড বা ইনস্টল করতে চান?' : 'Want to install the App directly?'}
+                  </h4>
+                  <p className="text-[11px] text-slate-300">
+                    {selectedLang === 'bn'
+                      ? 'কম্পিউটার বা মোবাইলে ইনস্টল করে অফলাইনেও ব্যবহার করতে পারবেন।'
+                      : 'Install as a standalone native app on Windows, Mac, Android, or iOS.'}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleInstallApp}
+                className="px-3.5 py-2 rounded-xl bg-brand-emerald hover:bg-emerald-600 text-white font-bold text-xs whitespace-nowrap shadow-sm transition-transform active:scale-95 shrink-0"
+              >
+                {selectedLang === 'bn' ? 'ডাউনলোড / ইনস্টল' : 'Download App'}
               </button>
             </div>
 
