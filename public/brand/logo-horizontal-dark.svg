@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" fill="none">
+  <rect x="0" y="4" width="56" height="56" rx="14" fill="#1E3E6B" />
+  <defs>
+    <linearGradient id="dh-m" x1="10" y1="10" x2="46" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3563E9" />
+      <stop offset="1" stop-color="#0F9D8A" />
+    </linearGradient>
+    <linearGradient id="dh-c" x1="22" y1="18" x2="34" y2="30" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#34D399" />
+      <stop offset="1" stop-color="#16A36A" />
+    </linearGradient>
+  </defs>
+  <path d="M14 46V22C14 20.067 15.567 18.5 17.5 18.5H19.25C20.7005 18.5 21.875 19.6745 21.875 21.125V37.75L28.875 29.875L35.875 37.75V21.125C35.875 19.6745 37.0495 18.5 38.5 18.5H40.25C42.183 18.5 43.75 20.067 43.75 22V46C43.75 47.4505 42.5755 48.625 41.125 48.625C39.6745 48.625 38.5 47.4505 38.5 46V29L30.7312 36.7688C29.7061 37.7939 28.0439 37.7939 27.0188 36.7688L19.25 29V46C19.25 47.4505 18.0755 48.625 16.625 48.625C15.1745 48.625 14 47.4505 14 46Z" fill="url(#dh-m)" />
+  <circle cx="28" cy="23.5" r="4.5" fill="url(#dh-c)" />
+  <circle cx="28" cy="23.5" r="2" fill="#FFFFFF" />
+  
+  <!-- Monevia Wordmark (Pure White for Dark / Navy background) -->
+  <text x="72" y="42" font-family="Inter, -apple-system, sans-serif" font-size="32" font-weight="800" fill="#FFFFFF" letter-spacing="-0.03em">Monevia</text>
+  <circle cx="218" cy="38" r="4" fill="#16A36A" />
+</svg>

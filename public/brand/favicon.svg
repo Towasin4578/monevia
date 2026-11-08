@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="16" fill="#142D4E" />
+  <defs>
+    <linearGradient id="m-grad" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3563E9" />
+      <stop offset="1" stop-color="#0F9D8A" />
+    </linearGradient>
+    <linearGradient id="coin-grad" x1="26" y1="26" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#16A36A" />
+      <stop offset="1" stop-color="#10B981" />
+    </linearGradient>
+  </defs>
+  <!-- Geometric M Left Pillar -->
+  <path d="M15 48V20C15 17.7909 16.7909 16 19 16H21C22.6569 16 24 17.3431 24 19V38L32 29L40 38V19C40 17.3431 41.3431 16 43 16H45C47.2091 16 49 17.7909 49 20V48C49 49.6569 47.6569 51 46 51C44.3431 51 43 49.6569 43 48V28.5L34.1213 37.3787C32.9497 38.5503 31.0503 38.5503 29.8787 37.3787L21 28.5V48C21 49.6569 19.6569 51 18 51C16.3431 51 15 49.6569 15 48Z" fill="url(#m-grad)" />
+  <!-- Embedded Emerald Coin/Wallet Accent -->
+  <circle cx="32" cy="22" r="5" fill="url(#coin-grad)" />
+  <circle cx="32" cy="22" r="2.5" fill="#FFFFFF" fill-opacity="0.85" />
+</svg>

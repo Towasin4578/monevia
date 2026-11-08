@@ -1,0 +1,24 @@
+{
+  "short_name": "Monevia",
+  "name": "Monevia — Global Personal Finance",
+  "description": "Your Money. Your Control. International multi-currency personal finance and expense management platform.",
+  "icons": [
+    {
+      "src": "/brand/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/brand/app-icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#142D4E",
+  "theme_color": "#142D4E",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "scope": "/"
+}
