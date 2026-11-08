@@ -312,22 +312,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
 
               <div className="space-y-2 pt-2">
                 <a
-                  href="/downloads/Monevia.apk"
+                  href="https://github.com/Towasin4578/monevia/releases/download/v1.0.0/Monevia.apk"
                   download="Monevia.apk"
                   className="w-full py-3 px-4 rounded-xl bg-brand-emerald hover:bg-emerald-600 text-white font-black text-xs flex items-center justify-center gap-2 shadow-md transition-transform active:scale-95"
                 >
                   <Download className="w-4 h-4" />
                   <span>{lang === 'bn' ? 'সরাসরি Monevia.apk ডাউনলোড' : 'Download Monevia.apk'}</span>
                 </a>
-                <button
-                  type="button"
-                  onClick={handleInstallPWA}
+                <a
+                  href="/downloads/Monevia.apk"
+                  download="Monevia.apk"
                   className="w-full py-2 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 font-semibold text-[11px] flex items-center justify-center gap-1.5 transition-colors"
                 >
-                  <span>{lang === 'bn' ? 'বা ১-ক্লিক ব্রাউজারে ইনস্টল' : 'Or 1-Click Install'}</span>
-                </button>
+                  <span>{lang === 'bn' ? 'বিকল্প সার্ভার থেকে ডাউনলোড (Mirror)' : 'Mirror Server Download'}</span>
+                </a>
                 <span className="block text-[10px] text-slate-400 text-center font-mono">
-                  v1.0.0 • 4.2 MB • Native Android APK
+                  v1.0.0 • 4.3 MB • Native Android APK (No 404)
                 </span>
               </div>
             </div>
