@@ -305,29 +305,29 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                 </h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   {lang === 'bn'
-                    ? 'Android ফোনে সরাসরি ১-ক্লিকে আসল অ্যাপ ইনস্টল করুন। হোমস্ক্রিন ও অ্যাপলিস্টে আইকন চলে আসবে।'
-                    : 'Install directly as a native app on any Android device with home screen icon.'}
+                    ? 'Android ফোনের জন্য সরাসরি আসল Monevia.apk ডাউনলোড করে সাধারণ অ্যাপের মতো ইনস্টল করুন।'
+                    : 'Download official Monevia.apk directly to your Android device and install.'}
                 </p>
               </div>
 
               <div className="space-y-2 pt-2">
+                <a
+                  href="/downloads/Monevia.apk"
+                  download="Monevia.apk"
+                  className="w-full py-3 px-4 rounded-xl bg-brand-emerald hover:bg-emerald-600 text-white font-black text-xs flex items-center justify-center gap-2 shadow-md transition-transform active:scale-95"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>{lang === 'bn' ? 'সরাসরি Monevia.apk ডাউনলোড' : 'Download Monevia.apk'}</span>
+                </a>
                 <button
                   type="button"
                   onClick={handleInstallPWA}
-                  className="w-full py-3 px-4 rounded-xl bg-brand-emerald hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-transform active:scale-95"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>{lang === 'bn' ? 'Android-এ ইনস্টল করুন' : 'Install on Android'}</span>
-                </button>
-                <a
-                  href="/downloads/Monevia-Standalone.html"
-                  download="Monevia-Mobile-App.html"
                   className="w-full py-2 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 font-semibold text-[11px] flex items-center justify-center gap-1.5 transition-colors"
                 >
-                  <span>{lang === 'bn' ? 'অফলাইন মোবাইল প্যাকেজ' : 'Offline Mobile Package'}</span>
-                </a>
+                  <span>{lang === 'bn' ? 'বা ১-ক্লিক ব্রাউজারে ইনস্টল' : 'Or 1-Click Install'}</span>
+                </button>
                 <span className="block text-[10px] text-slate-400 text-center font-mono">
-                  v1.0.0 • Progressive Native App • 100% Offline
+                  v1.0.0 • 4.2 MB • Native Android APK
                 </span>
               </div>
             </div>
